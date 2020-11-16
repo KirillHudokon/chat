@@ -5,8 +5,7 @@ import FormWithTitle from "../FormTitleWrapper/"
 import { Icon } from '../../../utils/Icon';
 import { signInInitialState } from '../../../utils/initialStates';
 
-function SignIn(props) {
-  console.log(props)
+function SignIn({email, password, changeUserData}) {
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Sign In Form">
@@ -15,11 +14,23 @@ function SignIn(props) {
             <div className={styles.formContentCentered}>
               <div className={styles.formFieldWrapper}>
                 <div className={styles.formFieldContainer}>
-                  <input className={styles.formField} placeholder="email"/>
+                  <input 
+                    className={styles.formField}
+                    name="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={changeUserData}
+                  />
                   <span className={styles.formFieldLine}/>
                 </div>
                 <div className={styles.formFieldContainer}>
-                  <input className={styles.formField} placeholder="password"/>
+                  <input
+                    className={styles.formField}
+                    name="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={changeUserData}
+                  />
                   <span className={styles.formFieldLine}/>
                 </div>
               </div>

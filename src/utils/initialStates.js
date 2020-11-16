@@ -1,4 +1,4 @@
 export const signInInitialState = {
-    login: '',
+    email: '',
     password: ''
 }
