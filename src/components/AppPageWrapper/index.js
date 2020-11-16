@@ -1,6 +1,6 @@
 import styles from'./index.module.scss';
 
-function AppPageWrapper({children}) {
+const AppPageWrapper = ({children}) => {
   return (
     <div className={styles.appPageWrapper}>
         {children}

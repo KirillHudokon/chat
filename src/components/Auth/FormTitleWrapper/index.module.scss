@@ -1,0 +1,12 @@
+@import "../../../utils/styles/colors.scss";
+.formTitleContainer{
+    width:100%;
+    position:absolute;
+    top:-60px;
+    left:0;
+    text-align: center;
+    .formTitle{
+        font-size: 32px;
+        color: $white;
+    }
+}
