@@ -13,7 +13,7 @@
             padding: 20px;
             box-sizing: border-box;
             border-radius: 8px;
-            background: rgb(28, 30, 33);
+            background: $lightDarkGrey;
             position: relative;
             .formFieldWrapper{
                 .formFieldContainer{
@@ -24,7 +24,7 @@
                         font-weight: 700;
                         font-size: 14px;
                         background: none;
-                        color: rgb(52, 56, 61);
+                        color: $darkGrey;
                         height: 40px;
                         margin-top: 4px;
                     }
@@ -37,7 +37,7 @@
                         height: 2px;
                         width:100%;
                         bottom:-4px;
-                        background: rgb(52, 56, 61);
+                        background: $darkGrey;
                         content: '';
                     }
                 }
@@ -59,16 +59,23 @@
                     position: absolute;
                     width: 52px;
                     height: 52px;
-                    color: rgb(52, 56, 61);
+                    color: $darkGrey;
                     border-radius: 50px;
-                    border: 6px solid rgb(52, 56, 61);
-                    background: rgb(28, 30, 33);
+                    border: 6px solid $darkGrey;
+                    background: $lightDarkGrey;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    .formActionPlay{
-                        color:red
+                    svg{
+                        transition: 0.3s;
+                    }
+                }
+                &:hover{
+                    .formActionContainer{
+                        svg{
+                            color: $darkGrey;
+                        }
                     }
                 }
             }
