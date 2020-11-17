@@ -15,6 +15,7 @@
             border-radius: 8px;
             background: $lightDarkGrey;
             position: relative;
+            margin-bottom: 5px;
             .formFieldWrapper{
                 .formFieldContainer{
                     width:100%;
@@ -79,6 +80,11 @@
                     }
                 }
             }
+        }
+        .formAccountSupportLinkContainer{
+            width:100%;
+            box-sizing: border-box;
+            padding-left: 20px;
         }
     }
 }   

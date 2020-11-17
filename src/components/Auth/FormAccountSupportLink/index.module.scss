@@ -1,1 +1,28 @@
-@import '../../../utils/styles/authForm.scss'
+@import '../../../utils/styles/authForm.scss';
+@import '../../../utils/styles/colors.scss';
+
+.formAccountSupportLink{
+    color: $oxfordGrey;
+    font-weight: 700;
+    font-size: 12px;
+    .formAccountSupportLinkRedirect{
+        color: $lightBlue;
+        cursor: pointer;
+        position: relative;
+        &:hover{
+            &:after{
+                display: none;    
+            }
+        }
+        &:after{
+            content:'';
+            width:100%;
+            height: 1px;
+            position: absolute;
+            top:100%;
+            left:0;
+            background-color: $lightBlue;
+            display: block;
+        }
+    }
+}   

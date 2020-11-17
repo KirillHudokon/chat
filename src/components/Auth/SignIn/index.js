@@ -8,7 +8,7 @@ import { Icon } from '../../../utils/Icon';
 import { signInInitialState } from '../../../utils/initialStates';
 
 function SignIn({email, password, changeUserData, children}) {
-  
+
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Sign In Form">
@@ -52,11 +52,11 @@ function SignIn({email, password, changeUserData, children}) {
     </div>
   );
 }
-SignIn.supportLinks = () => (
-  <div>
-    <FormAccountSupportLink text="huny"/>
+SignIn.supportLinks = () => {
+  return <div className={styles.formAccountSupportLinkContainer}>
+    <FormAccountSupportLink text="forgot your password?"/>
   </div>
-)
+}
 
 
 export default AuthFormWrapper(AuthFormWithSupportLinks(AuthFormController(SignIn,signInInitialState),SignIn.supportLinks()));
