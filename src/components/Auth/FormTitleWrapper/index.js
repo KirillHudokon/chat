@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from'./index.module.scss';
 
 const FormTitleWrapper = ({children, title='title'}) => {
@@ -15,4 +16,4 @@ const FormTitleWrapper = ({children, title='title'}) => {
   );
 }
 
-export default FormTitleWrapper;
+export default FormTitleWrapper

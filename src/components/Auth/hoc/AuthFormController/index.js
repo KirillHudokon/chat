@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 function AuthFormController (Component, initialState){
   return function AuthFormControllerComponent(props){
@@ -12,7 +12,7 @@ function AuthFormController (Component, initialState){
     const changeUserData = (e) => setNewUserData(e.target.name, e.target.value)
     return <Component
       {...props}
-      {...userData}
+      userData={userData}
       changeUserData={changeUserData}
     /> 
   }

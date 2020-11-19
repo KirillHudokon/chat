@@ -6,85 +6,85 @@
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
-    .formWrapper{
-        .formContentCentered{
-            width:100%;
-            height:100%;
-            padding: 20px;
-            box-sizing: border-box;
-            border-radius: 8px;
-            background: $lightDarkGrey;
-            position: relative;
-            margin-bottom: 5px;
-            .formFieldWrapper{
-                .formFieldContainer{
-                    width:100%;
-                    position: relative;
-                    .formField{
-                        width:100%;
-                        font-weight: 700;
-                        font-size: 14px;
-                        background: none;
-                        color: $darkGrey;
-                        height: 40px;
-                        margin-top: 4px;
-                    }
-                    .formField:focus{
-                        color:$white;
-                    }
-                    .formFieldLine::after{
-                        display: block;
-                        position: absolute;
-                        height: 2px;
-                        width:100%;
-                        bottom:-4px;
-                        background: $darkGrey;
-                        content: '';
-                    }
-                }
-                .formFieldContainer:first-child .formField{
-                    margin-top: 0;
-                }
-                .formFieldContainer:last-child .formFieldLine::after{
-                    display: none;
-                }
-            }
-            .formActionWrapper{
-                top:calc(50% - 16px);
-                left:calc(100% - 16px);
-                transform: translate(calc(-100% - 16px), calc(-50% - 16px) );
-                position: absolute;
-                z-index:1;
-                .formActionContainer{
-                    display: block;
-                    position: absolute;
-                    width: 52px;
-                    height: 52px;
-                    color: $darkGrey;
-                    border-radius: 50px;
-                    border: 6px solid $darkGrey;
-                    background: $lightDarkGrey;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    svg{
-                        transition: 0.3s;
-                    }
-                }
-                &:hover{
-                    .formActionContainer{
-                        svg{
-                            color: $darkGrey;
-                        }
-                    }
-                }
-            }
+}   
+.formWrapper{
+    .formContentCentered{
+        width:100%;
+        height:100%;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background: $lightDarkGrey;
+        position: relative;
+        margin-bottom: 5px;
+        .formFieldWrapper{
+        
         }
-        .formAccountSupportLinkContainer{
-            width:100%;
-            box-sizing: border-box;
-            padding-left: 20px;
+        .formActionWrapper{
+            top:calc(50% - 16px);
+            left:calc(100% - 16px);
+            transform: translate(calc(-100% - 16px), calc(-50% - 16px) );
+            position: absolute;
+            z-index:1;
+            &:hover{
+                svg{
+                    color: $darkGrey;
+                }
+            }
         }
     }
-}   
+    .formAccountSupportLinkContainer{
+        width:100%;
+        box-sizing: border-box;
+        padding-left: 20px;
+    }
+}
+
+.formField{
+    width:100%;
+    font-weight: 700;
+    font-size: 14px;
+    background: none;
+    color: $darkGrey;
+    height: 40px;
+    margin-top: 4px;
+    &:focus{
+        color:$white;
+    }
+}
+.formFieldContainer{
+    width:100%;
+    position: relative;
+    .formFieldLine::after{
+        display: block;
+        position: absolute;
+        height: 2px;
+        width:100%;
+        bottom:-4px;
+        background: $darkGrey;
+        content: '';
+    }
+}
+.formFieldContainer:first-child .formField{
+    margin-top: 0;
+}
+.formFieldContainer:last-child .formFieldLine::after{
+    display: none;
+}
+.formActionContainer{
+    display: block;
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    color: $darkGrey;
+    border-radius: 50px;
+    border: 6px solid $darkGrey;
+    background: $lightDarkGrey;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg{
+        transition: 0.3s;
+    }
+}
