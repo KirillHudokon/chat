@@ -5,10 +5,10 @@ const FieldsUserDataContainer = ({userData, changeUserData}) => {
   const renderUserData =()=> {
     return Object.entries(userData).map(data => {
       const [name, value] = data;
-      console.log(name)
       return (
         <div key={name} className={styles.formFieldContainer}>
-          <Field 
+          <Field
+            type={name === 'password' ? name : 'text'} 
             name={name}
             value={value}
             changeUserData={changeUserData}

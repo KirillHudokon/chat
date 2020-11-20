@@ -1,8 +1,9 @@
 import React, {useCallback} from "react"
 import styles from'./index.module.scss';
-function Field({value, changeUserData, name}) {
+function Field({value, changeUserData, name, type}) {
   return (
     <input
+      type={type}
       className={styles.formField}
       name={name}
       placeholder={name}
