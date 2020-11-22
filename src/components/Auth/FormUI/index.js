@@ -3,7 +3,7 @@ import styles from'./index.module.scss';
 import Submit from "../Submit/"
 import FieldsUserDataContainer from '../FieldsUserDataContainer';
 
-const FormUI = ({userData, changeUserData, children}) => {
+const FormUI = ({handleAction, userData, changeUserData, children}) => {
   return (
     <div className={styles.formWrapper}>
       <form>
@@ -12,7 +12,7 @@ const FormUI = ({userData, changeUserData, children}) => {
             <FieldsUserDataContainer userData={userData} changeUserData={changeUserData}/>
           </div>
           <div className={styles.formActionWrapper}>
-            <Submit/>
+            <Submit handleAction={handleAction} />
           </div>
         </div>
       </form>
