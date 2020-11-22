@@ -75,7 +75,11 @@ const resetPasswordError=(error)=>({
 export const resetUserStore = () => ({
     type: types.RESET_USER_STORE
 })
-export const signIn = (email, password) => async dispatch => {
+export const resetStoreWithoutCred = ()=> ({
+    type: types.RESET_USER_WITHOUT_CRED
+})
+export const signIn = (userData) => async dispatch => {
+    const {email, password} = userData
     try {
         dispatch(onSignInRequest());
         await auth.signInWithEmailAndPassword(email, password)
