@@ -82,38 +82,28 @@ export const signIn = (userData) => async dispatch => {
     const {email, password} = userData
     try {
         dispatch(onSignInRequest());
-        await auth.signInWithEmailAndPassword(email, password)
-            .then(async userData => {
-                dispatch(onSignInSuccess(userData));
-            })
-            .catch(e => {
-                console.log(e)
-                dispatch(onSignInError(e.message));
-            });
+        const userData = await auth.signInWithEmailAndPassword(email, password)
+        dispatch(onSignInSuccess(userData));
     } catch (e) {
        // if (e instanceof FieldRequiredError) {
         //    dispatch(onLogError(`Not valid: ${e.message}`));
        // }else{
-         //   dispatch(onLogError(e.message));
+            dispatch(onSignInError(e.message));
         //}
     }
 };
 
-export const signUp = (email, password1, password2) => async dispatch => {
+export const signUp = (userData) => async dispatch => {
+    const {email, password1, password2} = userData
     try {
         dispatch(onSignUpRequest());
-        await auth.createUserWithEmailAndPassword(email, password1)
-            .then(async userCredentials => {
-                if (userCredentials.user) {
-                    await db.collection('users/')
-                        .doc(userCredentials.user.uid).set({
+        const signUpUser = await auth.createUserWithEmailAndPassword(email, password1);
+        const setUserToDb = await db.collection('users/').doc(signUpUser.user.uid).set({
                             email,
-                            uid:userCredentials.user.uid,
+                            uid:signUpUser.user.uid,
                         })
-                    let userData = await auth.currentUser;
-                    dispatch(onSignUpSuccess(userData));
-                }
-        })
+        let user = await auth.currentUser;
+        dispatch(onSignUpSuccess(user));
     }catch (e){
        // if (e instanceof FieldRequiredError) {
        //     dispatch(onSignUpError(`Not valid: ${e.message}`));

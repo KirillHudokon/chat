@@ -6,10 +6,9 @@ import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
 import FormAccountSupportLink from "../FormAccountSupportLink"
 import FormWithTitle from "../FormTitleWrapper/"
 import { signInInitialState } from '../../../utils/initialStates';
-import { signIn as action } from "../../../actions/index"
+import { signIn as action, resetStoreWithoutCred } from "../../../actions/index"
 import FormUI from "../FormUI/"
 function SignIn({handleAction, userData, changeUserData, children}) { 
-
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Sign In Form">
@@ -26,13 +25,15 @@ function SignIn({handleAction, userData, changeUserData, children}) {
 }
 SignIn.supportLinks = () => {
   return <div className={styles.formAccountSupportLinkContainer}>
-    <FormAccountSupportLink text="forgot your password?"/>
+    <FormAccountSupportLink text="forgot your password?" link='reset'/>
+    <FormAccountSupportLink text="Dont`t have an account?" link='signup' simple={true}/>
   </div>
 }
 const mapStateToProps = store => ({
   authStatus: store.user.signin,
 });
 const mapDispatchToProps = {
+  resetStoreWithoutCred,
   action
 }
 const ConnectedSignIn = connect(mapStateToProps,mapDispatchToProps)(AuthFormController(SignIn,signInInitialState))

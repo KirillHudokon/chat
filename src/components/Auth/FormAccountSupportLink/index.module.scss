@@ -5,10 +5,12 @@
     color: $oxfordGrey;
     font-weight: 700;
     font-size: 12px;
+    margin-bottom: 7px;
     .formAccountSupportLinkRedirect{
         color: $lightBlue;
         cursor: pointer;
         position: relative;
+        text-decoration: none;
         &:hover{
             &:after{
                 display: none;    

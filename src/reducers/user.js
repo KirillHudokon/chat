@@ -66,7 +66,8 @@ export function userReducer(state=initial_state, action) {
             return { ...state, reset_password: { email_link_message:action.payload, loading: false, error: undefined } }
         case types.RESET_PASSWORD_FAIL:
             return { ...state, reset_password: { email_link_message:undefined, loading: false, error: action.payload } }
-
+        case types.RESET_USER_WITHOUT_CRED:
+            return {...initial_state, cred: state.cred}
         case types.RESET_USER_STORE:
             return {...initial_state}
         default:
