@@ -31,7 +31,6 @@ function AuthFormController (Component, initialState){
       const timer = 5000;
       clearTimer()
       resetErrorTimer.current = setTimeout(()=>{
-        console.log(1)
         resetStoreWithoutCred()
       },timer)
     }

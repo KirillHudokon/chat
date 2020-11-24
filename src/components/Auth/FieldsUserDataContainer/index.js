@@ -8,7 +8,7 @@ const FieldsUserDataContainer = ({userData, changeUserData}) => {
       return (
         <div key={name} className={styles.formFieldContainer}>
           <Field
-            type={name === 'password' ? name : 'text'} 
+            type={name.indexOf('password') !== -1 ? 'password' : 'text'} 
             name={name}
             value={value}
             changeUserData={changeUserData}

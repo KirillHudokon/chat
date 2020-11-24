@@ -1,4 +1,5 @@
 import {db, auth} from "../config/fire";
+import { FieldRequiredError, checkIsValid, BadlyFormattedDataError } from "../exceptions";
 import * as types from '../types/'
 
 const onSignInRequest = () => ({
@@ -81,35 +82,42 @@ export const resetStoreWithoutCred = ()=> ({
 export const signIn = (userData) => async dispatch => {
     const {email, password} = userData
     try {
+        checkIsValid(userData)
         dispatch(onSignInRequest());
-        const userData = await auth.signInWithEmailAndPassword(email, password)
-        dispatch(onSignInSuccess(userData));
+        const user = await auth.signInWithEmailAndPassword(email, password)
+        dispatch(onSignInSuccess(user));
     } catch (e) {
-       // if (e instanceof FieldRequiredError) {
-        //    dispatch(onLogError(`Not valid: ${e.message}`));
-       // }else{
+        if (e instanceof FieldRequiredError) {
+           dispatch(onSignInError(`${e.message} Please enter your ${e.field} and try again`));
+        }else if(e instanceof BadlyFormattedDataError){
+            dispatch(onSignInError(`${e.message} Please enter your ${e.field} correctly and try again`));
+        }else{
             dispatch(onSignInError(e.message));
-        //}
+        }
     }
 };
 
 export const signUp = (userData) => async dispatch => {
-    const {email, password1, password2} = userData
+    const {email, password} = userData
     try {
+        checkIsValid(userData)
         dispatch(onSignUpRequest());
-        const signUpUser = await auth.createUserWithEmailAndPassword(email, password1);
-        const setUserToDb = await db.collection('users/').doc(signUpUser.user.uid).set({
+        const signUpUser = await auth.createUserWithEmailAndPassword(email, password);
+        await db.collection('users/').doc(signUpUser.user.uid).set({
                             email,
                             uid:signUpUser.user.uid,
-                        })
+                            authStep:2,
+                        })              
         let user = await auth.currentUser;
         dispatch(onSignUpSuccess(user));
     }catch (e){
-       // if (e instanceof FieldRequiredError) {
-       //     dispatch(onSignUpError(`Not valid: ${e.message}`));
-       // }else{
-        //    dispatch(onSignUpError(e.message));
-       // }
+        if (e instanceof FieldRequiredError) {
+            dispatch(onSignUpError(`${e.message} Please enter your ${e.field} and try again`));
+         }else if(e instanceof BadlyFormattedDataError){
+             dispatch(onSignUpError(`${e.message} Please enter your ${e.field} correctly and try again`));
+         }else{
+             dispatch(onSignUpError(e.message));
+         }
     }
 };
 export const logout = () => dispatch => {

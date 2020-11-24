@@ -1,12 +1,13 @@
+//hash ma p set
 export const signInInitialState = {
-    email: '',
-    password: ''
+    'email': '',
+    'password': ''
 }
 export const signUpInitialState = {
-    email: '',
-    name:'',
-    password: ''
+    'email': '',
+    'password': '',
+    'repeat password': ''
 }
 export const resetFormInitialState = {
-    email: '',
+    'email': '',
 }
