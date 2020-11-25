@@ -57,7 +57,6 @@ export const checkIsValid = (userData) => {
         checkPattern(data)
     })
     if(userData['repeat password']){
-        console.log('repeat')
         checkPasswordsMatching(userData['repeat password'], userData['password'])
     }
 }

@@ -2,14 +2,16 @@ import React from "react"
 import { BrowserRouter, Switch } from "react-router-dom"
 import { mainPages } from "../../utils/routes/mainRoutes"
 import  ProtectedRoute from "../ProtectedRoute/"
-function MainPages() {
+function MainPages({user}) {
   const renderRoutes = (path) => {
     return mainPages[path].map(route => {
        return <ProtectedRoute
             key={route.name}
+            name={route.name}
             path={route.path}
             component={route.component}
             exact={route.exact}
+            user={user}
         />
       }) 
   }

@@ -8,4 +8,4 @@ const AppPagesWrapper = ({children}) => {
   );
 }
 
-export default AppPagesWrapper;
+export default AppPagesWrapper

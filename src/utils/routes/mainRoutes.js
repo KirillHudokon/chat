@@ -11,7 +11,7 @@ export const mainPages = {
     ],
     app:[
         {
-            name:'chat',
+            name:'app',
             path:'/',
             component: ChatApp,
             exact: true

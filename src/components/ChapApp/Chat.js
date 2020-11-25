@@ -1,7 +1,17 @@
-import { faDivide } from "@fortawesome/free-solid-svg-icons"
+import { connect } from "react-redux"
 
-export default ChatApp = () => {
+const ChatApp = ({logout}) => {
    return <div>
-        1
+        <button onClick={(e)=>{e.preventDefault(); logout()}}>
+            logout
+        </button>
     </div>
 }
+
+const mapStateToProps = store => ({
+    user: store.user.cred,
+});
+const mapDispatchToProps = {
+    logout
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ChatApp);

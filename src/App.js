@@ -1,19 +1,28 @@
+import {useEffect} from 'react'
 import './App.scss';
 import {connect} from 'react-redux'
 import AppPagesWrapper from "./components/AppPagesWrapper/"
 import MainPages from './routes/MainPages';
+import {userListener} from './actions/'
 
-const App = ({user}) => {
-  console.log(user)
+const App = ({user,userChecked, userListener}) => {
+  useEffect(()=>{
+    userListener()
+  }, [userListener])
+  if(!userChecked) return <div>loading...</div>
   return (
     <div>
       <AppPagesWrapper>
-        <MainPages/>
+        <MainPages user={user}/>
       </AppPagesWrapper>
     </div>
   );
 }
 const mapStateToProps = store => ({
   user: store.user.cred,
+  userChecked: store.user.user_listener.checked
 });
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = {
+  userListener 
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
