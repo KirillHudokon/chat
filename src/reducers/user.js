@@ -3,8 +3,8 @@ import * as types from '../types/'
 const initial_state = {
     cred: null,
     signin: {
-        loading:false,
-        error: undefined,
+       loading:false,
+       error: undefined,
     },
     signup: {
       loading:false,    
@@ -22,12 +22,7 @@ const initial_state = {
     reset_password:{
         loading:false,
         error:undefined,
-        email_link_message:undefined,
-    },
-    patient_signup: {
-        loading:false,
-        error:undefined
-    },
+    }
 }
 export function userReducer(state=initial_state, action) {
     switch (action.type) {
@@ -62,11 +57,11 @@ export function userReducer(state=initial_state, action) {
             return { ...state, cred: null, user_listener: { loading: false, checked: true, error: action.payload } }
 
         case types.RESET_PASSWORD_REQUEST:
-            return { ...state, reset_password: { email_link_message: undefined, loading: true, error: undefined } }
+            return { ...state, reset_password: { loading: true, error: undefined } }
         case types.RESET_PASSWORD_SUCCESS:
-            return { ...state, reset_password: { email_link_message:action.payload, loading: false, error: undefined } }
+            return { ...state, reset_password: { loading: false, error: undefined } }
         case types.RESET_PASSWORD_FAIL:
-            return { ...state, reset_password: { email_link_message:undefined, loading: false, error: action.payload } }
+            return { ...state, reset_password: { loading: false, error: action.payload } }
             
         case types.RESET_USER_WITHOUT_CRED:
             return {...initial_state, cred: state.cred, user_listener: {...state.user_listener, error:undefined}}

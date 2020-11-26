@@ -8,11 +8,12 @@ import FormWithTitle from "../FormTitleWrapper/"
 import { signUpInitialState } from '../../../utils/initialStates';
 import { signUp as action, resetStoreWithoutCred } from "../../../actions/index"
 import FormUI from "../FormUI/"
-function SignUp({handleAction, userData, changeUserData, children}) { 
+function SignUp({authStatus, handleAction, userData, changeUserData, children}) { 
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Sign Up Form">
         <FormUI 
+          loading={authStatus.loading} 
           handleAction={handleAction}
           userData={userData}
           changeUserData={changeUserData}

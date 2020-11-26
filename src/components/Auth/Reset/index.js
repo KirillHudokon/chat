@@ -8,11 +8,12 @@ import FormWithTitle from "../FormTitleWrapper/"
 import { resetFormInitialState } from '../../../utils/initialStates';
 import { resetPassword as action, resetStoreWithoutCred} from "../../../actions/index"
 import FormUI from "../FormUI/"
-function Reset({handleAction, userData, changeUserData, children}) { 
+function Reset({authStatus, handleAction, userData, changeUserData, children}) { 
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Reset Form">
         <FormUI
+          loading={authStatus.loading} 
           handleAction={handleAction}  
           userData={userData}
           changeUserData={changeUserData} 
