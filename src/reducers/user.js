@@ -22,6 +22,7 @@ const initial_state = {
     reset_password:{
         loading:false,
         error:undefined,
+        success:false
     }
 }
 export function userReducer(state=initial_state, action) {
@@ -57,11 +58,11 @@ export function userReducer(state=initial_state, action) {
             return { ...state, cred: null, user_listener: { loading: false, checked: true, error: action.payload } }
 
         case types.RESET_PASSWORD_REQUEST:
-            return { ...state, reset_password: { loading: true, error: undefined } }
+            return { ...state, reset_password: { success: false, loading: true, error: undefined } }
         case types.RESET_PASSWORD_SUCCESS:
-            return { ...state, reset_password: { loading: false, error: undefined } }
+            return { ...state, reset_password: { success: true, loading: false, error: undefined } }
         case types.RESET_PASSWORD_FAIL:
-            return { ...state, reset_password: { loading: false, error: action.payload } }
+            return { ...state, reset_password: { sucess: false, loading: false, error: action.payload } }
             
         case types.RESET_USER_WITHOUT_CRED:
             return {...initial_state, cred: state.cred, user_listener: {...state.user_listener, error:undefined}}

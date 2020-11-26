@@ -7,6 +7,11 @@ function AuthFormController (Component, initialState){
     const { resetStoreWithoutCred, authStatus, action } = props
     const [userData, setUserData] = useState(initialState)
     useEffect(()=>{
+      if(authStatus.success){
+        setUserData(initialState)
+      }
+    },[authStatus.success])
+    useEffect(()=>{
       return ()=>{
         clearTimer()
         resetStoreWithoutCred()
@@ -34,14 +39,14 @@ function AuthFormController (Component, initialState){
         resetStoreWithoutCred()
       },timer)
     }
-    const showToast = () => {
+    const showToast = (status) => {
       addTimer()
       return (
         <Snackbar
-          open={Boolean(authStatus.error)}
+          open={Boolean(authStatus[status])}
         >
-          <Alert severity="error">
-            {authStatus.error}
+          <Alert severity={status}>
+            {status === 'error' ? authStatus[status] : 'Link was sent to your email' }
           </Alert>
         </Snackbar>
       )  
@@ -56,7 +61,8 @@ function AuthFormController (Component, initialState){
           handleAction={handleAction}
           showToast={showToast}
         />
-        {authStatus.error && showToast()}
+        {authStatus.error && showToast('error')}
+        {authStatus.success && showToast('success')}
       </> 
     )
   }
