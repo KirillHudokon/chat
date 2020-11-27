@@ -6,7 +6,7 @@ import FieldsUserDataContainer from '../FieldsUserDataContainer';
 const FormUI = ({loading, handleAction, userData, changeUserData, children}) => {
   return (
     <div className={styles.formWrapper}>
-      <form>
+      <form autoComplete="off">
         <div className={styles.formContentCentered}>
           <div className={styles.formFieldWrapper}>
             <FieldsUserDataContainer userData={userData} changeUserData={changeUserData}/>
