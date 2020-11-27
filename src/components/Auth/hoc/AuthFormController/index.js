@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 function AuthFormController (Component, initialState){
@@ -17,6 +17,20 @@ function AuthFormController (Component, initialState){
         resetStoreWithoutCred()
       }
     },[resetStoreWithoutCred])
+    const callActionByKey = e => {
+      const { keyCode } = e;
+      if (keyCode === 13 ) {
+        e.preventDefault()
+        action(userData)
+      }
+    }
+    useEffect(() => {
+      window.addEventListener('keydown', callActionByKey);
+  
+      return () => {
+        window.removeEventListener('keydown', callActionByKey);
+      };
+    }, [callActionByKey]);
     const setNewUserData = (userDataName,userDataValue) => {
       setUserData({
         ...userData,
