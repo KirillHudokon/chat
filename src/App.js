@@ -5,7 +5,7 @@ import AppPagesWrapper from "./components/AppPagesWrapper/"
 import MainPages from './routes/MainPages';
 import {userListener} from './actions/'
 
-const App = ({user,userChecked, userListener}) => {
+const App = ({userChecked, userListener}) => {
   useEffect(()=>{
     userListener()
   }, [userListener])
@@ -13,13 +13,12 @@ const App = ({user,userChecked, userListener}) => {
   return (
     <div>
       <AppPagesWrapper>
-        <MainPages user={user}/>
+        <MainPages/>
       </AppPagesWrapper>
     </div>
   );
 }
 const mapStateToProps = store => ({
-  user: store.user.cred,
   userChecked: store.user.user_listener.checked
 });
 const mapDispatchToProps = {

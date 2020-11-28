@@ -1,7 +1,9 @@
+import { act } from 'react-dom/test-utils'
 import * as types from '../types/'
 
 const initial_state = {
     cred: null,
+    data: null,
     signin: {
        loading:false,
        error: undefined,
@@ -20,6 +22,11 @@ const initial_state = {
        error:undefined,
     },
     reset_password:{
+        loading:false,
+        error:undefined,
+        success:false
+    },
+    update_user_data:{
         loading:false,
         error:undefined,
         success:false
@@ -57,15 +64,25 @@ export function userReducer(state=initial_state, action) {
         case types.USER_LISTENER_FAIL:
             return { ...state, cred: null, user_listener: { loading: false, checked: true, error: action.payload } }
 
+        case types.UPDATE_USER_DATA_REQUEST:
+            return { ...state, update_user_data: { loading: true, error: undefined } }
+        case types.UPDATE_USER_DATA_SUCCESS:
+            return { ...state, update_user_data: initial_state.update_user_data }
+        case types.UPDATE_USER_DATA_FAIL:
+            return { ...state, update_user_data: { loading: false, error: action.payload } }
+
+        case types.SUBSCRIBE_TO_USER:
+            return {...state, data:action.payload};
+
         case types.RESET_PASSWORD_REQUEST:
             return { ...state, reset_password: { success: false, loading: true, error: undefined } }
         case types.RESET_PASSWORD_SUCCESS:
             return { ...state, reset_password: { success: true, loading: false, error: undefined } }
         case types.RESET_PASSWORD_FAIL:
             return { ...state, reset_password: { sucess: false, loading: false, error: action.payload } }
-            
+
         case types.RESET_USER_WITHOUT_CRED:
-            return {...initial_state, cred: state.cred, user_listener: {...state.user_listener, error:undefined}}
+            return {...initial_state, cred: state.cred, data: state.data, user_listener: {...state.user_listener, error:undefined}}
 
         case types.RESET_USER_STORE:
             return {...initial_state}

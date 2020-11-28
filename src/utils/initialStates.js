@@ -11,3 +11,8 @@ export const signUpInitialState = {
 export const resetFormInitialState = {
     'email': '',
 }
+export const userInfoInitialState = {
+    'username' : '',
+    'phone' : '',
+    'city': '',
+}

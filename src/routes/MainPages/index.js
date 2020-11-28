@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter, Switch } from "react-router-dom"
 import { mainPages } from "../../utils/routes/mainRoutes"
 import  ProtectedRoute from "../ProtectedRoute/"
-function MainPages({user}) {
+function MainPages() {
   const renderRoutes = (path) => {
     return mainPages[path].map(route => {
        return <ProtectedRoute
@@ -11,7 +11,6 @@ function MainPages({user}) {
             path={route.path}
             component={route.component}
             exact={route.exact}
-            user={user}
         />
       }) 
   }

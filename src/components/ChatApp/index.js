@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-
+import { logout } from '../../actions/'
 const ChatApp = ({logout}) => {
    return <div>
         <button onClick={(e)=>{e.preventDefault(); logout()}}>

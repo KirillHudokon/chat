@@ -1,57 +1,55 @@
 import {db, auth} from "../config/fire";
 import { FieldRequiredError, checkIsValid, BadlyFormattedDataError } from "../exceptions";
 import * as types from '../types/'
-
-const onSignInRequest = () => ({
+import {store} from '../store/configureStore'
+let unsubscribe;
+const signInRequest = () => ({
     type: types.SIGN_IN_REQUEST,
 })
-
-const onSignInSuccess=(cred)=>({
+const signInSuccess=(cred)=>({
     type: types.SIGN_IN_SUCCESS,
     payload: cred,
 })
-const onSignInError=(error)=>({
+const signInError=(error)=>({
     type: types.SIGN_IN_FAIL,
     payload: error,
 })
 
-const onSignUpRequest = () => ({
+const signUpRequest = () => ({
     type: types.SIGN_UP_REQUEST,
 })
-
-const onSignUpSuccess=(cred)=>({
+const signUpSuccess=(cred)=>({
     type: types.SIGN_UP_SUCCESS,
     payload: cred,
 })
-const onSignUpError=(error)=>({
+const signUpError=(error)=>({
     type: types.SIGN_UP_FAIL,
     payload: error,
 })
 
-const onLogOutRequest = () => ({
+const logOutRequest = () => ({
     type: types.LOGOUT_REQUEST,
 })
-
-const onLogOutSuccess=()=>({
+const logOutSuccess=()=>({
     type: types.LOGOUT_SUCCESS,
     payload: null,
 })
-const onLogOutError=(error)=>({
+const logOutError=(error)=>({
     type: types.LOGOUT_FAIL,
     payload: error,
 })
 
-const onUserListenerRequest=()=>({
+const userListenerRequest=()=>({
     type: types.USER_LISTENER_REQUEST,
 })
-const onUserListenerSuccessAuth=(user)=>({
+const userListenerSuccessAuth=(user)=>({
     type: types.USER_LISTENER_SUCCESS_AUTH,
     payload: user,
 })
-const onUserListenerFailedAuth=()=>({
+const userListenerFailedAuth=()=>({
     type: types.USER_LISTENER_FAILED_AUTH,
 })
-const onUserListenerError=(error)=>({
+const userListenerError=(error)=>({
     type: types.USER_LISTENER_FAIL,
     payload: error,
 })
@@ -68,25 +66,56 @@ const resetPasswordError=(error)=>({
     payload:error
 })
 
+const updateUserDataRequest=()=>({
+    type: types.UPDATE_USER_DATA_REQUEST,
+})
+const updateUserDataSuccess=()=>({
+    type: types.UPDATE_USER_DATA_SUCCESS,
+    payload:'Email sent'
+})
+const updateUserDataError=(error)=>({
+    type: types.UPDATE_USER_DATA_FAIL,
+    payload:error
+})
+
 export const resetUserStore = () => ({
     type: types.RESET_USER_STORE
 })
 export const resetStoreWithoutCred = ()=> ({
     type: types.RESET_USER_WITHOUT_CRED
 })
-
+export const subscibeToUserSuccess = (data) => ({
+    type: types.SUBSCRIBE_TO_USER,
+    payload: data
+})
+export const subscribeToUser = (uid,cb) => async dispatch => {
+    try{
+        return new Promise(()=>{
+            if(!unsubscribe){
+                unsubscribe = db.collection('users/').doc(uid).onSnapshot(snap => {
+                    if(snap.exists){
+                        dispatch(subscibeToUserSuccess(snap.data()))
+                        cb()
+                    }
+                })
+            }
+        })
+    }catch (e){
+        dispatch(userListenerError(e.message));
+    }
+}
 export const userListener = () => async dispatch => {
     try {
-        dispatch(onUserListenerRequest())
+        dispatch(userListenerRequest())
         await auth.onAuthStateChanged(async user => {
             if (user) {
-                dispatch(onUserListenerSuccessAuth(user));
+                await dispatch(subscribeToUser(user.uid, ()=>dispatch(userListenerSuccessAuth(user))))
             } else {
-                dispatch(onUserListenerFailedAuth());
+                dispatch(userListenerFailedAuth());
             }
         });
     } catch (e) {
-        dispatch(onUserListenerError(e.message));
+        dispatch(userListenerError(e.message));
     }
 };
 
@@ -94,17 +123,17 @@ export const signIn = (userData) => async dispatch => {
     const {email, password} = userData
     try {
         checkIsValid(userData)
-        dispatch(onSignInRequest());
+        dispatch(signInRequest());
         await auth.signInWithEmailAndPassword(email, password)
         await dispatch(userListener())
-        dispatch(onSignInSuccess());
+        dispatch(signInSuccess());
     } catch (e) {
         if (e instanceof FieldRequiredError) {
-           dispatch(onSignInError(`${e.message} Please enter your ${e.field} and try again`));
+           dispatch(signInError(`${e.message} Please enter your ${e.field} and try again`));
         }else if(e instanceof BadlyFormattedDataError){
-            dispatch(onSignInError(`${e.message} Please enter your ${e.field} correctly and try again`));
+            dispatch(signInError(`${e.message} Please enter your ${e.field} correctly and try again`));
         }else{
-            dispatch(onSignInError(e.message));
+            dispatch(signInError(e.message));
         }
     }
 };
@@ -113,41 +142,44 @@ export const signUp = (userData) => async dispatch => {
     const {email, password} = userData
     try {
         checkIsValid(userData)
-        dispatch(onSignUpRequest());
-        const signUpUser = await auth.createUserWithEmailAndPassword(email, password);
+        dispatch(signUpRequest());
+        const signUpUser = await auth.createUserWithEmailAndPassword(email.toLowerCase(), password);
         await db.collection('users/').doc(signUpUser.user.uid).set({
                             email,
                             uid:signUpUser.user.uid,
-                            authStep:2,
+                            authStep:1,
                         })              
         await dispatch(userListener())
-        dispatch(onSignUpSuccess());
+        dispatch(signUpSuccess());
     }catch (e){
         if (e instanceof FieldRequiredError) {
-            dispatch(onSignUpError(`${e.message} Please enter your ${e.field} and try again`));
+            dispatch(signUpError(`${e.message} Please enter your ${e.field} and try again`));
         }else if(e instanceof BadlyFormattedDataError){
-             dispatch(onSignUpError(`${e.message} Please enter your ${e.field} correctly and try again`));
+             dispatch(signUpError(`${e.message} Please enter your ${e.field} correctly and try again`));
         }else{
-             dispatch(onSignUpError(e.message));
+             dispatch(signUpError(e.message));
         }
     }
 };
 export const logout = () => async dispatch => {
     try{
-        dispatch(onLogOutRequest());
+        dispatch(logOutRequest());
+        unsubscribe()
+        unsubscribe = undefined
         await auth.signOut()
         dispatch(resetUserStore())
         await dispatch(userListener());
-        dispatch(onLogOutSuccess());
+        dispatch(logOutSuccess());
     }catch (e){
-        dispatch(onLogOutError(e.message));
+        dispatch(logOutError(e.message));
     }
 };
 
 export const resetPassword = (userData) => async dispatch => {
+    const {email} = userData
     try {
-        const {email} = userData;
-        dispatch(resetPasswordRequest());
+        dispatch(resetPasswordRequest())
+        checkIsValid(userData)
         await auth.sendPasswordResetEmail(email)
         dispatch(resetPasswordSuccess());
     }catch (e){
@@ -161,4 +193,13 @@ export const resetPassword = (userData) => async dispatch => {
     }
 };
 
-
+export const updateUserData = (userData) => async dispatch => {
+   const {data} = store.getState().user.data
+   try {
+        dispatch(updateUserDataRequest());
+        await db.collection('users/').doc(data.uid).update({...userData, authStep: data.authStep+1})      
+        dispatch(updateUserDataSuccess());
+    }catch (e){
+        dispatch(updateUserDataError(e.message))
+    }
+}

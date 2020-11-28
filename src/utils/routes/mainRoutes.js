@@ -12,10 +12,10 @@ export const mainPages = {
     app:[
         {
             name:'app',
-            path:'/',
+            path:'/:app?/:id?',
             component: ChatApp,
             exact: true
-        },
+        }
         //{
           //  name:'404',
            // path:'**',
