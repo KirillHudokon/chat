@@ -1,9 +1,9 @@
 import {useEffect} from 'react'
-import './App.scss';
+import './App.scss'; /* global styles */
 import {connect} from 'react-redux'
-import AppPagesWrapper from "./components/AppPagesWrapper/"
-import MainPages from './routes/MainPages';
-import {userListener} from './actions/'
+import AppPagesWrapper from "../../components/AppPagesWrapper"
+import MainPages from '../../routes/MainPages';
+import {userListener} from '../../actions'
 
 const App = ({userChecked, userListener}) => {
   useEffect(()=>{

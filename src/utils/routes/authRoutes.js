@@ -1,6 +1,6 @@
-import SignIn from "../../components/Auth/SignIn"
-import SignUp from "../../components/Auth/SignUp"
-import Reset from "../../components/Auth/Reset"
+import SignIn from "../../containers/Auth/SignIn"
+import SignUp from "../../containers/Auth/SignUp"
+import Reset from "../../containers/Auth/Reset"
 export const authRoutes = [
     {
         name:'signin',

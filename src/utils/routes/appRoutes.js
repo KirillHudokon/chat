@@ -1,5 +1,5 @@
-import UserInfo from "../../components/Auth/UserInfo"
-import UserImageForm from "../../components/Auth/UserImageForm"
+import UserInfo from "../../containers/Auth/UserInfo"
+import UserImageForm from "../../containers/Auth/UserImageForm"
 import ChatApp from "../../components/ChatApp/"
 export const appRoutes = [
     {

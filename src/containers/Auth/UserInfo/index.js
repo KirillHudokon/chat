@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import styles from'./index.module.scss';
 import {connect} from "react-redux";
-import AuthFormController from "../hoc/AuthFormController"
-import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
-import FormAccountSupportLink from "../FormAccountSupportLink"
-import FormWithTitle from "../FormTitleWrapper/"
+import AuthFormController from "../../../components/Auth/hoc/AuthFormController"
+import AuthFormWithSupportLinks from "../../../components/Auth/hoc/AuthFormWithSupportLinks"
+import FormAccountSupportLink from "../../../components/Auth/FormAccountSupportLink"
+import FormWithTitle from "../../../components/Auth/FormTitleWrapper"
 import { userInfoInitialState } from '../../../utils/initialStates';
 import { updateUserData as action, skipUpdateUserData, resetStoreWithoutCred } from "../../../actions/index"
 import { store } from '../../../store/configureStore'
-import FormUI from "../FormUI/"
+import FormUI from "../../../components/Auth/FormUI"
 function UserInfo({authStatus, handleAction, userData, changeUserData, children}) { 
   return (
     <div className={styles.formContainer}>

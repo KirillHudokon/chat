@@ -1,12 +1,12 @@
 import styles from'./index.module.scss';
 import {connect} from "react-redux";
-import AuthFormController from "../hoc/AuthFormController"
-import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
-import FormAccountSupportLink from "../FormAccountSupportLink"
-import FormWithTitle from "../FormTitleWrapper/"
+import AuthFormController from "../../../components/Auth/hoc/AuthFormController"
+import AuthFormWithSupportLinks from "../../../components/Auth/hoc/AuthFormWithSupportLinks"
+import FormAccountSupportLink from "../../../components/Auth/FormAccountSupportLink"
+import FormWithTitle from "../../../components/Auth/FormTitleWrapper"
 import { updateUserPhoto, skipUpdateUserData, resetStoreWithoutCred } from "../../../actions/index"
 import { store } from '../../../store/configureStore'
-import FormUI from "../FormUI/"
+import FormUI from "../../../components/Auth/FormUI"
 function UserImageForm({authStatus, updateUserPhoto, children, userData, setExactData, clearData}) { 
   const updatePhoto = () => {
     updateUserPhoto(userData)

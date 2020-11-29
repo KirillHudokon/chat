@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import styles from'./index.module.scss';
 import {connect} from "react-redux";
-import AuthFormController from "../hoc/AuthFormController"
-import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
-import FormAccountSupportLink from "../FormAccountSupportLink"
-import FormWithTitle from "../FormTitleWrapper/"
+import AuthFormController from "../../../components/Auth/hoc/AuthFormController"
+import AuthFormWithSupportLinks from "../../../components/Auth/hoc/AuthFormWithSupportLinks/"
+import FormAccountSupportLink from "../../../components/Auth/FormAccountSupportLink"
+import FormWithTitle from "../../../components/Auth/FormTitleWrapper/"
 import { signInInitialState } from '../../../utils/initialStates';
 import { signIn as action, resetStoreWithoutCred } from "../../../actions/index"
-import FormUI from "../FormUI/"
+import FormUI from "../../../components/Auth/FormUI/"
 function SignIn({authStatus, handleAction, userData, changeUserData, children}) { 
   return (
     <div className={styles.formContainer}>
