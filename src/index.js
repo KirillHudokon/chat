@@ -4,9 +4,9 @@ import App from './App';
 import { Provider } from 'react-redux'
 import { store } from './store/configureStore'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {faPlay, faSpinner, faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPlay, faSpinner)
+library.add(faPlay, faSpinner, faUpload, faTimes)
 
 ReactDOM.render(
   <React.StrictMode>

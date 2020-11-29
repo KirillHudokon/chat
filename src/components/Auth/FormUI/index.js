@@ -2,14 +2,23 @@ import React from 'react'
 import styles from'./index.module.scss';
 import Submit from "../Submit/"
 import FieldsUserDataContainer from '../FieldsUserDataContainer';
-
-const FormUI = ({loading, handleAction, userData, changeUserData, children}) => {
+import UserImageContainer from '../UserImageContainer'
+const FormUI = ({loading, handleAction, userData, changeUserData, children, imageForm}) => {
+  const renderUi = () => {
+    if(!imageForm){
+      return <FieldsUserDataContainer
+        userData={userData}
+        changeUserData={changeUserData}
+      />
+    }
+    return <UserImageContainer/>
+  }
   return (
     <div className={styles.formWrapper}>
       <form autoComplete="off">
         <div className={styles.formContentCentered}>
           <div className={styles.formFieldWrapper}>
-            <FieldsUserDataContainer userData={userData} changeUserData={changeUserData}/>
+            {renderUi()}
           </div>
           <div className={styles.formActionWrapper}>
             <Submit handleAction={handleAction} loading={loading} />
