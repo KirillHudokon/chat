@@ -1,25 +1,26 @@
-import React, { useEffect } from 'react'
 import styles from'./index.module.scss';
 import {connect} from "react-redux";
+import AuthFormController from "../hoc/AuthFormController"
 import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
 import FormAccountSupportLink from "../FormAccountSupportLink"
 import FormWithTitle from "../FormTitleWrapper/"
-import { updateUserData as action, skipUpdateUserData, resetStoreWithoutCred } from "../../../actions/index"
+import { updateUserPhoto, skipUpdateUserData, resetStoreWithoutCred } from "../../../actions/index"
 import { store } from '../../../store/configureStore'
 import FormUI from "../FormUI/"
-function UserImageForm({authStatus, action, children, resetStoreWithoutCred}) { 
-  useEffect(()=>{
-    return ()=>{
-      resetStoreWithoutCred()
-    }
-  })
+function UserImageForm({authStatus, updateUserPhoto, children, userData, setExactData, clearData}) { 
+  const updatePhoto = () => {
+    updateUserPhoto(userData)
+  }
   return (
     <div className={styles.formContainer}>
       <FormWithTitle title="Your Photo">
         <FormUI
           loading={authStatus.loading} 
-          handleAction={action} 
+          handleAction={updatePhoto} 
           imageForm={true}
+          userData={userData}
+          savePhoto={setExactData}
+          deletePhoto={clearData}
         >
           {children}
         </FormUI>
@@ -37,8 +38,8 @@ const mapStateToProps = store => ({
 });
 const mapDispatchToProps = {
   resetStoreWithoutCred,
-  action
+  updateUserPhoto
 }
-const ConnectedUserImageForm = connect(mapStateToProps,mapDispatchToProps)(UserImageForm)
+const ConnectedUserImageForm = connect(mapStateToProps,mapDispatchToProps)(AuthFormController(UserImageForm,null))
 
 export default AuthFormWithSupportLinks(ConnectedUserImageForm,UserImageForm.supportLinks());

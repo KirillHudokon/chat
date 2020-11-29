@@ -1,7 +1,8 @@
-import {db, auth} from "../config/fire";
-import { FieldRequiredError, checkIsValid, BadlyFormattedDataError, checkIsUserDataValid } from "../exceptions";
+import {db, auth, storage} from "../config/fire";
+import { FieldRequiredError, checkIsValid, BadlyFormattedDataError, checkIsUserDataValid, checkIsUserPhotoValid } from "../exceptions";
 import * as types from '../types/'
 import {store} from '../store/configureStore'
+import { v4 as uuidv4 } from 'uuid';
 let unsubscribe;
 const signInRequest = () => ({
     type: types.SIGN_IN_REQUEST,
@@ -207,6 +208,21 @@ export const updateUserData = (userData) => async dispatch => {
         console.log(e)
         dispatch(updateUserDataError(e.message))
     }
+}
+export const updateUserPhoto = (photo) => async dispatch => {
+    const {data} = store.getState().user
+    try {
+         checkIsUserPhotoValid(photo)
+         dispatch(updateUserDataRequest());
+         const photoRef = storage.ref(`images/${photo.id}`)
+         await photoRef.put(photo)
+         const photoURL = await photoRef.getDownloadURL()
+         await db.collection('users/').doc(data.uid).update({authStep: data.authStep+1, photo: photoURL})      
+         dispatch(updateUserDataSuccess());
+     }catch (e){
+         console.log(e)
+         dispatch(updateUserDataError(e.message))
+     }
 }
 
 export const skipUpdateUserData = () => async dispatch => {

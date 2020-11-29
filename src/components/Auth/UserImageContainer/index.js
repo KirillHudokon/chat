@@ -1,23 +1,19 @@
 import { useState} from 'react'
 import {useDropzone} from 'react-dropzone'
+import { v4 as uuidv4 } from 'uuid';
 import { Icon } from '../../../utils/Icon';
 import styles from'./index.module.scss';
-const UserImageContainer = () => {
-  const [photo, setPhoto] = useState(null)
+const UserImageContainer = ({  photo, savePhoto, deletePhoto}) => {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
       if(acceptedFiles.length){
-        setPhoto(
-          Object.assign({}, acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]) })
+        savePhoto(
+          Object.assign(acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]), id:uuidv4() })
         )
       }
     }
   })
-  const deletePhoto = (e) => {
-    e.preventDefault();
-    setPhoto(null)
-  }
   const renderImage = () => {
     return <div className={styles.photoContainer}>
       <div className={styles.deletePhotoContainer} onDoubleClick={deletePhoto}>

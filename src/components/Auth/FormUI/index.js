@@ -3,7 +3,7 @@ import styles from'./index.module.scss';
 import Submit from "../Submit/"
 import FieldsUserDataContainer from '../FieldsUserDataContainer';
 import UserImageContainer from '../UserImageContainer'
-const FormUI = ({loading, handleAction, userData, changeUserData, children, imageForm}) => {
+const FormUI = ({loading, handleAction, userData, changeUserData, children, imageForm, savePhoto, deletePhoto}) => {
   const renderUi = () => {
     if(!imageForm){
       return <FieldsUserDataContainer
@@ -11,7 +11,11 @@ const FormUI = ({loading, handleAction, userData, changeUserData, children, imag
         changeUserData={changeUserData}
       />
     }
-    return <UserImageContainer/>
+    return <UserImageContainer
+      photo={userData}
+      savePhoto={savePhoto}
+      deletePhoto={deletePhoto}
+    />
   }
   return (
     <div className={styles.formWrapper}>

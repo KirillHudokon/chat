@@ -12,6 +12,11 @@ export class FieldRequiredError extends ValidationError {
         this.field = field;
     }
 }
+export class PhotoRequiredError extends ValidationError {
+    constructor() {
+        super(`Please, upload your photo`);
+    }
+}
 export class PasswordMismatchError extends ValidationError{
     constructor() {
         super('Passwords must be the same');
@@ -33,6 +38,11 @@ const checkIsEmpty = (userData) => {
     const [name, value] = userData
     if(!value){
         throw new FieldRequiredError(name)
+    }
+}
+const checkIsUserPhotoEmpty = (photo) => {
+    if(!photo || !Object.keys(photo).length){
+        throw new PhotoRequiredError()
     }
 }
 const checkPattern = (userData) => {
@@ -70,4 +80,7 @@ export const checkIsUserDataValid = (userData) => {
             checkPattern(data) 
         }
     })
+}
+export const checkIsUserPhotoValid = (photo) => {
+    checkIsUserPhotoEmpty(photo)
 }

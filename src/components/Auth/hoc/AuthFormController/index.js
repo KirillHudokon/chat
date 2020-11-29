@@ -4,7 +4,7 @@ import { Alert } from '@material-ui/lab';
 function AuthFormController (Component, initialState){
   return function AuthFormControllerComponent(props){
     const resetErrorTimer = useRef(null);
-    const { resetStoreWithoutCred, authStatus, action } = props
+    const { resetStoreWithoutCred, authStatus, action, updateUserPhoto } = props
     const [userData, setUserData] = useState(initialState)
     useEffect(()=>{
       if(authStatus.success){
@@ -17,11 +17,24 @@ function AuthFormController (Component, initialState){
         resetStoreWithoutCred()
       }
     },[resetStoreWithoutCred])
+    const handleAction = (e) => {
+      e.preventDefault()
+      const transformUserData = Object.entries(userData).map(data=>{
+        const [name, value] = data
+        if(name === 'username' || name.indexOf('password')!==-1) return {[name]:value};
+        return {[name]: value.trim().toLowerCase()}
+      })
+      const toUserDataObject = Object.assign({}, ...transformUserData)
+      action(toUserDataObject)
+    }
     const callActionByKey = e => {
       const { keyCode } = e;
       if (keyCode === 13 ) {
-        e.preventDefault()
-        action(userData)
+        if(initialState){
+            handleAction(e)
+        }else{
+          updateUserPhoto(userData)
+        }
       }
     }
     useEffect(() => {
@@ -37,15 +50,11 @@ function AuthFormController (Component, initialState){
         [userDataName]:userDataValue
       })
     }
-    const handleAction = (e) => {
-      e.preventDefault()
-      const transformUserData = Object.entries(userData).map(data=>{
-        const [name, value] = data
-        if(name === 'username' || name.indexOf('password')!==-1) return {[name]:value};
-        return {[name]: value.trim().toLowerCase()}
-      })
-      const toUserDataObject = Object.assign({}, ...transformUserData)
-      action(toUserDataObject)
+    const clearData = () => {
+      setUserData(null)
+    }
+    const setExactData = (data) => {
+      setUserData(data)
     }
     const clearTimer = () => {
       if (resetErrorTimer.current !== null) {          
@@ -80,6 +89,8 @@ function AuthFormController (Component, initialState){
           changeUserData={changeUserData}
           handleAction={handleAction}
           showToast={showToast}
+          clearData={clearData}
+          setExactData={setExactData}
         />
         {authStatus.error && showToast('error')}
         {authStatus.success && showToast('success')}
