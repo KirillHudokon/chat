@@ -6,7 +6,8 @@ import AuthFormWithSupportLinks from "../hoc/AuthFormWithSupportLinks/"
 import FormAccountSupportLink from "../FormAccountSupportLink"
 import FormWithTitle from "../FormTitleWrapper/"
 import { userInfoInitialState } from '../../../utils/initialStates';
-import { updateUserData as action, resetStoreWithoutCred } from "../../../actions/index"
+import { updateUserData as action, skipUpdateUserData, resetStoreWithoutCred } from "../../../actions/index"
+import { store } from '../../../store/configureStore'
 import FormUI from "../FormUI/"
 function UserInfo({authStatus, handleAction, userData, changeUserData, children}) { 
   return (
@@ -26,7 +27,7 @@ function UserInfo({authStatus, handleAction, userData, changeUserData, children}
 }
 UserInfo.supportLinks = () => {
   return <div className={styles.formAccountSupportLinkContainer}>
-    <FormAccountSupportLink text="Skip to next step" link='reset'/>
+    <FormAccountSupportLink text="Skip to next step" action={()=>skipUpdateUserData()(store.dispatch)}/>
   </div>
 }
 const mapStateToProps = store => ({

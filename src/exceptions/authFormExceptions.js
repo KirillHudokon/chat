@@ -18,10 +18,9 @@ export class PasswordMismatchError extends ValidationError{
     }
 }
 
-export class IncorrectPhoneNumber extends ValidationError{
-    constructor(field) {
-        super(`Incorrect phone number in ${field}. Please, try again with correct`);
-        this.fieild = field
+export class IncorrectPhoneNumberError extends ValidationError{
+    constructor() {
+        super(`Incorrect phone number. Please, try again with correct`);
     }
 }
 export class BadlyFormattedDataError extends ValidationError{
@@ -41,6 +40,11 @@ const checkPattern = (userData) => {
     const regex = {
         email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         username: /^[\p{L}0-9 ]+$/u,
+        city: /^[\p{L} ]+$/u,
+        phone: /^[\d +]+$/
+    }
+    if(name === 'phone' && (value.length < 4 || !regex[name.toLowerCase()].test(value))){
+        throw new IncorrectPhoneNumberError()
     }
     if(regex[name] && !regex[name.toLowerCase()].test(value)){
       throw new BadlyFormattedDataError(name)
@@ -59,4 +63,11 @@ export const checkIsValid = (userData) => {
     if(userData['repeat password']){
         checkPasswordsMatching(userData['repeat password'], userData['password'])
     }
+}
+export const checkIsUserDataValid = (userData) => {
+    Object.entries(userData).map(data=>{
+        if(data[1]){
+            checkPattern(data) 
+        }
+    })
 }

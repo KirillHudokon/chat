@@ -1,5 +1,5 @@
 import {db, auth} from "../config/fire";
-import { FieldRequiredError, checkIsValid, BadlyFormattedDataError } from "../exceptions";
+import { FieldRequiredError, checkIsValid, BadlyFormattedDataError, checkIsUserDataValid } from "../exceptions";
 import * as types from '../types/'
 import {store} from '../store/configureStore'
 let unsubscribe;
@@ -91,14 +91,17 @@ export const subscibeToUserSuccess = (data) => ({
 export const subscribeToUser = (uid,cb) => async dispatch => {
     try{
         return new Promise(()=>{
-            if(!unsubscribe){
-                unsubscribe = db.collection('users/').doc(uid).onSnapshot(snap => {
-                    if(snap.exists){
-                        dispatch(subscibeToUserSuccess(snap.data()))
-                        cb()
-                    }
-                })
+            if(unsubscribe){
+                unsubscribe()
+                unsubscribe = undefined
             }
+            
+            unsubscribe = db.collection('users/').doc(uid).onSnapshot(snap => {
+                if(snap.exists){
+                    dispatch(subscibeToUserSuccess(snap.data()))
+                    cb()
+                }
+            }) 
         })
     }catch (e){
         dispatch(userListenerError(e.message));
@@ -194,10 +197,23 @@ export const resetPassword = (userData) => async dispatch => {
 };
 
 export const updateUserData = (userData) => async dispatch => {
-   const {data} = store.getState().user.data
+   const {data} = store.getState().user
    try {
+        checkIsUserDataValid(userData)
         dispatch(updateUserDataRequest());
         await db.collection('users/').doc(data.uid).update({...userData, authStep: data.authStep+1})      
+        dispatch(updateUserDataSuccess());
+    }catch (e){
+        console.log(e)
+        dispatch(updateUserDataError(e.message))
+    }
+}
+
+export const skipUpdateUserData = () => async dispatch => {
+    const {data} = store.getState().user
+    try{
+        dispatch(updateUserDataRequest());
+        await db.collection('users/').doc(data.uid).update({authStep: data.authStep+1})      
         dispatch(updateUserDataSuccess());
     }catch (e){
         dispatch(updateUserDataError(e.message))

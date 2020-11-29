@@ -39,7 +39,13 @@ function AuthFormController (Component, initialState){
     }
     const handleAction = (e) => {
       e.preventDefault()
-      action(userData)
+      const transformUserData = Object.entries(userData).map(data=>{
+        const [name, value] = data
+        if(name === 'username' || name.indexOf('password')!==-1) return {[name]:value};
+        return {[name]: value.trim().toLowerCase()}
+      })
+      const toUserDataObject = Object.assign({}, ...transformUserData)
+      action(toUserDataObject)
     }
     const clearTimer = () => {
       if (resetErrorTimer.current !== null) {          
