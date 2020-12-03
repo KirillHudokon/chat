@@ -34,7 +34,7 @@ UserImageForm.supportLinks = () => {
   </div>
 }
 const mapStateToProps = store => ({
-  authStatus: store.user.update_user_data,
+  authStatus: store.user.user_auth,
 });
 const mapDispatchToProps = {
   resetStoreWithoutCred,

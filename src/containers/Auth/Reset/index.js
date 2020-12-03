@@ -30,7 +30,7 @@ Reset.supportLinks = () => {
   </div>
 }
 const mapStateToProps = store => ({
-  authStatus: store.user.reset_password,
+  authStatus: store.user.user_auth,
 });
 const mapDispatchToProps = {
   action,

@@ -1,0 +1,45 @@
+@import "../../utils/styles/colors.scss";
+.chatApp{
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+    .navbar{
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        flex-grow: 1;
+        max-width: 80px;
+        min-height: 100vh;
+        background-color: $lightDarkGrey;
+        height: 100%;
+        padding-top: 50px;
+        .userAvatarContainer{
+            width:100%;
+            margin-bottom: 30px;
+            background-color: red;
+            height: 50px;
+        }
+    }
+    .chats{
+        flex-grow: 3.2;
+        max-width: 260px;
+        min-height: 100vh;
+        height: 100%;
+    }
+    .chat{
+        flex-grow: 7;
+        min-height: 100vh;
+        height: 100%;
+        background-color: $lightlyHeavenBlue;
+    }
+    .anotherUserProfile{
+        flex-grow: 2.8;
+        max-width: 225px;
+        min-height: 100vh;
+        height: 100%;
+        background-color: $snowWhite;
+        border-left: 1px solid rgb(225, 225, 225);
+    }
+}

@@ -32,7 +32,7 @@ SignUp.supportLinks = () => {
 }
 
 const mapStateToProps = store => ({
-  authStatus: store.user.signup,
+  authStatus: store.user.user_auth,
 });
 const mapDispatchToProps = {
   resetStoreWithoutCred,
