@@ -1,80 +1,76 @@
-import {db, auth, storage} from "../config/fire";
-import { FieldRequiredError, checkIsValid, BadlyFormattedDataError, checkIsUserDataValid, checkIsUserPhotoValid } from "../exceptions";
-import * as types from '../types/'
-import {store} from '../store/configureStore'
-import { v4 as uuidv4 } from 'uuid';
+import {db, auth, storage} from "../../config/fire";
+import { FieldRequiredError, checkIsValid, BadlyFormattedDataError, checkIsUserDataValid, checkIsUserPhotoValid } from "../../exceptions";
+import * as types from '../../types'
+import {store} from '../../store/configureStore'
 let unsubscribe;
-const signInRequest = () => ({
+export const signInRequest = () => ({
     type: types.SIGN_IN_REQUEST,
 })
-const signInSuccess=(cred)=>({
+export const signInSuccess=(cred)=>({
     type: types.SIGN_IN_SUCCESS,
     payload: cred,
 })
-const signInError=(error)=>({
+export const signInError=(error)=>({
     type: types.SIGN_IN_FAIL,
     payload: error,
 })
 
-const signUpRequest = () => ({
+export const signUpRequest = () => ({
     type: types.SIGN_UP_REQUEST,
 })
-const signUpSuccess=(cred)=>({
+export const signUpSuccess=(cred)=>({
     type: types.SIGN_UP_SUCCESS,
     payload: cred,
 })
-const signUpError=(error)=>({
+export const signUpError=(error)=>({
     type: types.SIGN_UP_FAIL,
     payload: error,
 })
 
-const logOutRequest = () => ({
+export const logOutRequest = () => ({
     type: types.LOGOUT_REQUEST,
 })
-const logOutSuccess=()=>({
+export const logOutSuccess=()=>({
     type: types.LOGOUT_SUCCESS,
-    payload: null,
 })
-const logOutError=(error)=>({
+export const logOutError=(error)=>({
     type: types.LOGOUT_FAIL,
     payload: error,
 })
 
-const userListenerRequest=()=>({
+export const userListenerRequest=()=>({
     type: types.USER_LISTENER_REQUEST,
 })
-const userListenerSuccessAuth=(user)=>({
+export const userListenerSuccessAuth=(user)=>({
     type: types.USER_LISTENER_SUCCESS_AUTH,
     payload: user,
 })
-const userListenerFailedAuth=()=>({
+export const userListenerFailedAuth=()=>({
     type: types.USER_LISTENER_FAILED_AUTH,
 })
-const userListenerError=(error)=>({
+export const userListenerError=(error)=>({
     type: types.USER_LISTENER_FAIL,
     payload: error,
 })
 
-const resetPasswordRequest=()=>({
+export const resetPasswordRequest=()=>({
     type: types.RESET_PASSWORD_REQUEST,
 })
-const resetPasswordSuccess=()=>({
+export const resetPasswordSuccess=()=>({
     type: types.RESET_PASSWORD_SUCCESS,
-    payload:'Email sent'
 })
-const resetPasswordError=(error)=>({
+export const resetPasswordError=(error)=>({
     type: types.RESET_PASSWORD_FAIL,
     payload:error
 })
 
-const updateUserDataRequest=()=>({
+export const updateUserDataRequest=()=>({
     type: types.UPDATE_USER_DATA_REQUEST,
 })
-const updateUserDataSuccess=()=>({
+export const updateUserDataSuccess=()=>({
     type: types.UPDATE_USER_DATA_SUCCESS,
-    payload:'Email sent'
 })
-const updateUserDataError=(error)=>({
+export const updateUserDataError=(error)=>({
     type: types.UPDATE_USER_DATA_FAIL,
     payload:error
 })

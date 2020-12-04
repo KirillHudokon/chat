@@ -1,5 +1,5 @@
 import {userReducer} from '.'
-import * as types from '../../types/'
+import * as types from '../../types'
 import { userReducerInitialState as initialState } from '../../utils/initialStates'
 const loadingState = {
     ...initialState,
