@@ -1,5 +1,11 @@
 import * as ac from '.'
-import * as types from '../../types/'
+import * as types from '../../types'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import fetchMock from 'fetch-mock'
+
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 describe('testing auth actions',() =>{
     describe('testing sign in', () => {
         it('loading', ()=>{
@@ -20,6 +26,9 @@ describe('testing auth actions',() =>{
                 payload: 'error'
             }
             expect(ac.signInError(action.payload)).toEqual(action)
+        })
+        describe('testing async sign in action',()=> {
+    
         })
     })
     describe('testing sign up', () => {
