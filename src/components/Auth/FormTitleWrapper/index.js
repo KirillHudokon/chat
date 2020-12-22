@@ -9,7 +9,7 @@ const FormTitleWrapper = ({children, title='title'}) => {
           {title}
         </h1> 
       </div> 
-      <div>
+      <div className={styles.formUiWrapper}>
         {children}
       </div>
     </div>

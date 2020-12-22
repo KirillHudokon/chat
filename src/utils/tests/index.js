@@ -1,21 +1,14 @@
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux'
 function shallowWithRedux(
   Component,
-  reducer,
-  {
-    initialState,
-    store = createStore(reducer, initialState)
-  } = {}
+  store,
+  props = {}
 ) {
-    console.debug(Component)
-  return shallow(
+  return mount(
     <Provider store={store}>
-      {Component}
+        <Component {...props}/>
     </Provider>
   )
-
 }
 
 export {shallowWithRedux}
