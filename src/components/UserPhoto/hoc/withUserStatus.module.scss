@@ -1,0 +1,16 @@
+@import "../../../utils/styles/colors.scss";
+.userNetworkStatus{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 13px;
+    border: 2px solid $lightDarkGrey;
+}
+.online{
+    background-color: green;
+}
+.offline{
+    background-color: red;
+}
