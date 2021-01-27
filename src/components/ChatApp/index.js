@@ -1,17 +1,20 @@
 import styles from'./index.module.scss';
 import UserPhoto from '../UserPhoto'
-const ChatApp = () => {
-   return <div className={styles.chatApp}>
+const ChatApp = () => (
+   <div className={styles.chatApp}>
        <nav className={styles.navbar}>
          <div className={styles.userPhotoContainer}>
                 <UserPhoto 
-                    src="https://lh3.googleusercontent.com/proxy/CqpmmdOwqWuwmX5jqYhRM4LO85VQoT8NZH33UOlcYZB8qfcpBYH6W7en6f3yQemUckjPmU10QSFeNbffnzrbI5rVo5SASq7sa0SM4Fi8JPHA" 
+                    src="https://lh3.googleusercontent.com/proxy/qQkttZGWvsBRT1KkAGr-SNY92QaphzVW4ljfa0XVct-TxCGSAjnzdHDz1DbwvRPmvMjDdK2v1dxa1b6254B8DNqumXoez5k-7wcZTtTl6doo" 
                 />
          </div>
          <div className={styles.navOptions}>
              <div className={styles.navOption}>
                  
              </div>
+         </div>
+         <div className={styles.logoutContainer}>
+
          </div>
        </nav>
        <div className={styles.chats}>
@@ -24,6 +27,6 @@ const ChatApp = () => {
 
        </div>
     </div>
-}
+)
 
 export default ChatApp
