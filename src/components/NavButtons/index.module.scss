@@ -1,0 +1,21 @@
+@import "../../utils/styles/colors.scss";
+.navButtons{
+    width: 100%;
+    .navButton{
+        a{
+            padding: 20px 0;
+            display: block;
+            transition: .3s;
+            cursor: pointer;
+            &:hover{
+                background-color: $darkGrey;
+            }  
+            .iconContainer{
+                text-align: center;
+                svg[class*=navButtonIcon]{
+                    font-size: 35px;
+                }
+            }
+        }
+    }
+}

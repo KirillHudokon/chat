@@ -1,10 +1,12 @@
 import NavButtons from '.'
 import {shallow} from 'enzyme'
+import {navButtons} from '../../utils/navButtons'
 describe('testing navigation buttons',()=>{
+    const navButtonsComponent = shallow(<NavButtons/>)
  it('NavButtons content is exist', ()=> {
-        const appPagesWrapper = shallow(
-            <NavButtons/>
-        )
-        expect(appPagesWrapper.find('div')).toHaveLength(1)
+        expect(navButtonsComponent.find('.navButtons')).toHaveLength(1)
+    })
+ it('check NavButtons length', ()=> {
+        expect(navButtonsComponent.find('.navButton')).toHaveLength(navButtons.length)
     })
 })
