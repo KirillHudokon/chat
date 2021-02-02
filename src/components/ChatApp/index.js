@@ -1,21 +1,8 @@
 import styles from'./index.module.scss';
-import UserPhoto from '../UserPhoto'
-import NavButtons from '../NavButtons';
+import Navigation from '../Navigation';
 const ChatApp = () => (
    <div className={styles.chatApp}>
-       <nav className={styles.navbar}>
-         <div className={styles.userPhotoContainer}>
-                <UserPhoto 
-                    src="https://lh3.googleusercontent.com/proxy/qQkttZGWvsBRT1KkAGr-SNY92QaphzVW4ljfa0XVct-TxCGSAjnzdHDz1DbwvRPmvMjDdK2v1dxa1b6254B8DNqumXoez5k-7wcZTtTl6doo" 
-                />
-         </div>
-         <div className={styles.navButtons}>
-                <NavButtons/>
-         </div>
-         <div className={styles.logoutContainer}>
-
-         </div>
-       </nav>
+       <Navigation/>
        <div className={styles.chats}>
 
        </div>
