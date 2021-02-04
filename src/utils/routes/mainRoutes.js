@@ -4,7 +4,7 @@ export const mainPages = {
     auth:[
         {
             name:'auth',
-            path:'/:auth/',
+            path:'/:auth?/',
             component: Auth,
             exact: true
         },
