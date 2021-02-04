@@ -1,5 +1,5 @@
 import {Provider} from 'react-redux'
-function shallowWithRedux(
+function mountWithRedux(
   Component,
   store,
   props = {}
@@ -11,4 +11,4 @@ function shallowWithRedux(
   )
 }
 
-export {shallowWithRedux}
+export { mountWithRedux }

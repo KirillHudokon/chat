@@ -1,5 +1,5 @@
 import App from '.'
-import {shallowWithRedux} from '../../utils/tests'
+import {mountWithRedux} from '../../utils/tests'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 const middlewares = [thunk]
@@ -22,7 +22,7 @@ it('testing user is checked', ()=> {
                 }
             }
         })
-        const app = shallowWithRedux(App, store).find('AppPagesWrapper');
+        const app = mountWithRedux(App, store).find('AppPagesWrapper');
         expect(app.find('.appPagesWrapper').exists()).toBeTruthy()
     })
   it('testing user is not checked', ()=> {
@@ -33,7 +33,7 @@ it('testing user is checked', ()=> {
                 }
             }
         })
-        const app = shallowWithRedux(App, store).find(App.WrappedComponent.name)
+        const app = mountWithRedux(App, store).find(App.WrappedComponent.name)
         expect(app.find('div').text()).toEqual('loading...')
     })
 })

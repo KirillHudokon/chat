@@ -4,9 +4,15 @@ import ChatApp from "../../components/ChatApp/"
 import { Sp } from '../../components/Sp'
 export const appRoutes = [
     {
-        name:'main',
-        path:'/',
-        component: ChatApp,
+        name:'step1',
+        path:'/user-info/1',
+        component: UserInfo,
+        exact: true
+    },
+    {
+        name:'step2',
+        path:'/user-info/2',
+        component: UserImageForm,
         exact: true
     },
     {
@@ -22,15 +28,9 @@ export const appRoutes = [
         exact: true
     },
     {
-        name:'step1',
-        path:'/user-info/1',
-        component: UserInfo,
-        exact: true
-    },
-    {
-        name:'step2',
-        path:'/user-info/2',
-        component: UserImageForm,
+        name:'main',
+        path:'/',
+        component: ChatApp,
         exact: true
     },
 ]

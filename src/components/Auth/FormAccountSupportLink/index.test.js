@@ -4,7 +4,6 @@ describe('testing FormAccountSupportLink', ()=>{
         const formAccountSupportLink = shallow(<FormAccountSupportLink text='text' action={jest.fn()} />)
         const linkText = formAccountSupportLink.find('.formAccountSupportLinkRedirect')
         expect(linkText.text().trim()).toEqual('text')
-       // (formAccountSupportLink).toHaveLength(Object.keys(signInInitialState).length);
     })
   it('testing simple form link text', ()=> {
         const formAccountSupportLink = shallow(<FormAccountSupportLink simple={true} text='text' />)

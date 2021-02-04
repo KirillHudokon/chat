@@ -1,0 +1,16 @@
+@import "../../../utils/styles/colors.scss";
+.logoutButton{
+    padding: 20px 0;
+    width: 100%;
+    transition: .3s;
+    cursor: pointer;
+    text-align: center;
+    &:hover{
+        background-color: $darkGrey;
+    }    
+    svg{
+        font-size: 35px;
+        color: white;
+    }
+        
+}
